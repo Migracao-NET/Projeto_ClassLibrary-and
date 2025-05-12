@@ -37,13 +37,23 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   </PropertyGroup>
   <PropertyGroup>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OutputType>Library</OutputType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Projeto_ClassLibrary</PackageId>
     <Version>1.0.0</Version>
-    <Authors>AndressaFontes</Authors>
+    <Authors>SeuNome</Authors>
     <Description>Descrição do pacote</Description>
+    <PackageTags>dotnet;library;example</PackageTags>
+    <RepositoryUrl>https://github.com/MigracaoDotNetForms/Projeto_ClassLibrary</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+</Project>
+
+</PropertyGroup>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">

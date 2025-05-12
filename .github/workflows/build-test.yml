@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest # Use Windows para projetos .NET Framework
+    runs-on: windows-latest 
 
     steps:
     - name: Checkout code
@@ -19,7 +19,7 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Setuup nuget
+    - name: Setup nuget
       uses: NuGet/setup-nuget@v2
 
     - name: Oficial SonarQube Scan
@@ -35,19 +35,14 @@ jobs:
           
     # Build the project
     - name: Build solution
-      run: msbuild Projeto_ClassLibrary.sln /p:Configuration=Release
+      run: msbuild Projeto_ClassLibrary.csproj /t:pack /p:Configuration=Release
       continue-on-error: false
 
     - name: Run tests
       run: dotnet test ./Projeto_ClassLibrary.Tests/Projeto_ClassLibrary.Tests.csproj --configuration Release
 
-    - name: Upload binaries to GitHub Packages
-      uses: actions/upload-artifact@v4
-      with:
-        name: Projeto_ClassLibrary_Binaries
-        path: |
-          ./Projeto_ClassLibrary/bin/Release/
-          ./Projeto_ClassLibrary.Tests/bin/Release/
-
-    - name: Publish NuGet package
-      run: dotnet nuget push ./Projeto_ClassLibrary/bin/Release/Projeto_ClassLibrary.1.0.0.nupkg --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ secrets.GITHUB_TOKEN }}
+    - name: Publicar pacote no GitHub Packages
+      run: >
+        nuget push Projeto_ClassLibrary\bin\Release\*.nupkg
+        -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+        -ApiKey ${{ secrets.GH_NUGET_PAT }}
