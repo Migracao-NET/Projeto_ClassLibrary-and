@@ -26,13 +26,10 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         args: >
-         -Dsonar.login=97d300de9816694a6779648a164f0297300d1c4e
+         -Dsonar.branch.name=main
          -Dsonar.organization='migracaodotnetforms'
-         -Dsonar.projectKey='Projeto_ClassLibrary'
+         -Dsonar.projectKey='projeto_classlibrary'
          -Dsonar.verbose=true
          -Dsonar.exclusions=**/bin/**/*,**/obj/**/*,**/packages/**/*,**/test/**/*
-
-           # Build the project
-    - name: Build solution
-      run: msbuild Projeto_Windows.sln /p:Configuration=Release
-      continue-on-error: false
+          
+     
