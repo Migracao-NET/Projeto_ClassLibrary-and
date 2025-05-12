@@ -31,4 +31,11 @@ jobs:
          -Dsonar.verbose=true
          -Dsonar.exclusions=**/bin/**/*,**/obj/**/*,**/packages/**/*,**/test/**/*
           
-     
+    # Build the project
+    - name: Build solution
+      run: msbuild Projeto_ClassLibrary.sln /p:Configuration=Release
+      continue-on-error: false
+
+    - name: Run tests
+      run: |
+        vstest.console.exe ./Projeto_ClassLibrary.Tests/bin/Release/Projeto_ClassLibrary.Tests.dll
