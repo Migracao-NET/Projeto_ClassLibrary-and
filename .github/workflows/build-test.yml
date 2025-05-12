@@ -29,7 +29,6 @@ jobs:
          -Dsonar.login=97d300de9816694a6779648a164f0297300d1c4e
          -Dsonar.organization='migracaodotnetforms'
          -Dsonar.projectKey='Projeto_ClassLibrary'
-         Dsonar.host.url=https://sonarcloud.io 
          -Dsonar.verbose=true
          -Dsonar.exclusions=**/bin/**/*,**/obj/**/*,**/packages/**/*,**/test/**/*
 
