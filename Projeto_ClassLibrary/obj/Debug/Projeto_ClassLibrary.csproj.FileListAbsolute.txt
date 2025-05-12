@@ -1,0 +1,6 @@
+C:\Users\a.fontes.da.cunha\source\repos\Projeto_ClassLibrary\Projeto_ClassLibrary\bin\Debug\Projeto_ClassLibrary.dll
+C:\Users\a.fontes.da.cunha\source\repos\Projeto_ClassLibrary\Projeto_ClassLibrary\bin\Debug\Projeto_ClassLibrary.pdb
+C:\Users\a.fontes.da.cunha\source\repos\Projeto_ClassLibrary\Projeto_ClassLibrary\obj\Debug\Projeto_ClassLibrary.csproj.AssemblyReference.cache
+C:\Users\a.fontes.da.cunha\source\repos\Projeto_ClassLibrary\Projeto_ClassLibrary\obj\Debug\Projeto_ClassLibrary.csproj.CoreCompileInputs.cache
+C:\Users\a.fontes.da.cunha\source\repos\Projeto_ClassLibrary\Projeto_ClassLibrary\obj\Debug\Projeto_ClassLibrary.dll
+C:\Users\a.fontes.da.cunha\source\repos\Projeto_ClassLibrary\Projeto_ClassLibrary\obj\Debug\Projeto_ClassLibrary.pdb
