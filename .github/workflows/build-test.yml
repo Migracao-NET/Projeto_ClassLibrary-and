@@ -20,4 +20,13 @@ jobs:
     - name: Setuup nuget
       uses: NuGet/setup-nuget@v2
 
-    
+    - name: Oficial SonarQube Scan
+      uses: sonarsource/sonarqube-scan-action@v5.2.0
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+         -Dsonar.organization='migracaodotnetforms'
+         Dsonar.projectKey=${{ github.event.repository.name}}
+         -Dsonar.verbose=true
+         -Dsonar.exclusions=**/bin/**/*,**/obj/**/*,**/packages/**/*,**/test/**/*
