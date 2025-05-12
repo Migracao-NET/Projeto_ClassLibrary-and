@@ -38,3 +38,11 @@ jobs:
 
     - name: Run tests
       run: dotnet test ./Projeto_ClassLibrary.Tests/Projeto_ClassLibrary.Tests.csproj --configuration Release
+
+    - name: Upload binaries to GitHub Packages
+      uses: actions/upload-artifact@v3
+      with:
+        name: Projeto_ClassLibrary_Binaries
+        path: |
+          ./Projeto_ClassLibrary/bin/Release/
+          ./Projeto_ClassLibrary.Tests/bin/Release/
