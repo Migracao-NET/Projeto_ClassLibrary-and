@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest 
+    runs-on: windows-latest # Use Windows para projetos .NET Framework
 
     steps:
     - name: Checkout code
@@ -19,7 +19,7 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Setup nuget
+    - name: Setuup nuget
       uses: NuGet/setup-nuget@v2
 
     - name: Oficial SonarQube Scan
@@ -32,23 +32,20 @@ jobs:
          -Dsonar.projectKey=MigracaoDotNetForms_Projeto_ClassLibrary
          -Dsonar.verbose=true
          -Dsonar.exclusions=**/bin/**/*,**/obj/**/*,**/packages/**/*,**/test/**/*
-
-    - name: Restaurar pacotes NuGet
-      run: nuget restore Projeto_ClassLibrary.csproj
           
     # Build the project
     - name: Build solution
-      run: msbuild Projeto_ClassLibrary/Projeto_ClassLibrary.csproj /p:Configuration=Release
+      run: msbuild Projeto_ClassLibrary.sln /p:Configuration=Release
       continue-on-error: false
 
     - name: Run tests
       run: dotnet test ./Projeto_ClassLibrary.Tests/Projeto_ClassLibrary.Tests.csproj --configuration Release
 
-    - name: Gerar pacote NuGet
-      run: nuget pack Projeto_ClassLibrary.csproj -Build -Version 1.0.0 -OutputDirectory ./bin/Release
-      
-    - name: Publicar pacote no GitHub Packages
-      run: >
-        nuget push Projeto_ClassLibrary\bin\Release\*.nupkg
-        -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
-        -ApiKey ${{ secrets.GH_NUGET_PAT }}
+    - name: Upload binaries
+      uses: actions/upload-artifact@v4
+      with:
+        name: Projeto_ClassLibrary_Binaries
+        path: |
+          ./Projeto_ClassLibrary/bin/Release/
+          ./Projeto_ClassLibrary.Tests/bin/Release/
+          
