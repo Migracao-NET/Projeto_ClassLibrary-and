@@ -26,6 +26,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         args: >
+         -Dsonar.branch.name=main
          -Dsonar.organization='migracaodotnetforms'
          -Dsonar.projectKey=${{ github.repository }}
          -Dsonar.verbose=true
