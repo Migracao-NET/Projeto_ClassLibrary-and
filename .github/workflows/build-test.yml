@@ -27,7 +27,7 @@ jobs:
       with:
         args: >
          -Dsonar.organization=migracaodotnetforms
-         -Dsonar.projectKey=Projeto_ClassLibrary
+         -Dsonar.projectKey=MigracaoDotNetForms_Projeto_ClassLibrary
          -Dsonar.verbose=true
          -Dsonar.exclusions=**/bin/**/*,**/obj/**/*,**/packages/**/*,**/test/**/*
           
