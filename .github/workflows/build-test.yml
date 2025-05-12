@@ -35,7 +35,7 @@ jobs:
           
     # Build the project
     - name: Build solution
-      run: msbuild Projeto_ClassLibrary.csproj /t:pack /p:Configuration=Release
+      run: msbuild Projeto_ClassLibrary/Projeto_ClassLibrary.csproj /t:pack /p:Configuration=Release
       continue-on-error: false
 
     - name: Run tests
