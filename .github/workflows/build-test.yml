@@ -37,5 +37,4 @@ jobs:
       continue-on-error: false
 
     - name: Run tests
-      run: |
-        vstest.console.exe ./Projeto_ClassLibrary.Tests/bin/Release/Projeto_ClassLibrary.Tests.dll
+      run: dotnet test ./Projeto_ClassLibrary.Tests/Projeto_ClassLibrary.Tests.csproj --configuration Release
