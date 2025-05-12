@@ -32,15 +32,21 @@ jobs:
          -Dsonar.projectKey=MigracaoDotNetForms_Projeto_ClassLibrary
          -Dsonar.verbose=true
          -Dsonar.exclusions=**/bin/**/*,**/obj/**/*,**/packages/**/*,**/test/**/*
+
+    - name: Restaurar pacotes NuGet
+      run: nuget restore Projeto_ClassLibrary.csproj
           
     # Build the project
     - name: Build solution
-      run: msbuild Projeto_ClassLibrary/Projeto_ClassLibrary.csproj /t:pack /p:Configuration=Release
+      run: msbuild Projeto_ClassLibrary/Projeto_ClassLibrary.csproj /p:Configuration=Release
       continue-on-error: false
 
     - name: Run tests
       run: dotnet test ./Projeto_ClassLibrary.Tests/Projeto_ClassLibrary.Tests.csproj --configuration Release
 
+    - name: Gerar pacote NuGet
+      run: nuget pack Projeto_ClassLibrary.csproj -Build -Version 1.0.0 -OutputDirectory ./bin/Release
+      
     - name: Publicar pacote no GitHub Packages
       run: >
         nuget push Projeto_ClassLibrary\bin\Release\*.nupkg
