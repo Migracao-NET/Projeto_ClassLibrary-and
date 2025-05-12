@@ -26,10 +26,10 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         args: >
-         -Dsonar.branch.name=main
          -Dsonar.organization='migracaodotnetforms'
-         -Dsonar.projectKey='projeto_classlibrary'
+         -Dsonar.projectKey='Projeto_ClassLibrary'
          -Dsonar.verbose=true
+         -
          -Dsonar.exclusions=**/bin/**/*,**/obj/**/*,**/packages/**/*,**/test/**/*
           
      
