@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build, Test, and Publish
 
 on:
   push:
@@ -8,18 +8,18 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest # Use Windows para projetos .NET Framework
+    runs-on: windows-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
       with:
-       fetch-depth: 0
+        fetch-depth: 0
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Setuup nuget
+    - name: Setup NuGet
       uses: NuGet/setup-nuget@v2
 
     - name: Oficial SonarQube Scan
@@ -36,10 +36,18 @@ jobs:
     # Build the project
     - name: Build solution
       run: msbuild Projeto_ClassLibrary.sln /p:Configuration=Release
-      continue-on-error: false
 
     - name: Run tests
       run: dotnet test ./Projeto_ClassLibrary.Tests/Projeto_ClassLibrary.Tests.csproj --configuration Release
 
-   
-          
+    # Pack the project
+    - name: Pack NuGet package
+      run: dotnet pack ./Projeto_ClassLibrary/Projeto_ClassLibrary.csproj --configuration Release --output ./nupkgs
+
+    # Publish to GitHub Packages
+    - name: Publish to GitHub Packages
+      run: dotnet nuget push ./nupkgs/*.nupkg --source "github" --api-key ${{ secrets.GITHUB_TOKEN }}
+      env:
+        NUGET_SERVER_URL: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+
+
