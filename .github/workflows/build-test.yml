@@ -40,14 +40,16 @@ jobs:
     - name: Run tests
       run: dotnet test ./Projeto_ClassLibrary.Tests/Projeto_ClassLibrary.Tests.csproj --configuration Release
 
-    # Pack the project
+    # Pack the NuGet package
     - name: Pack NuGet package
-      run: dotnet pack ./Projeto_ClassLibrary/Projeto_ClassLibrary.csproj --configuration Release --output ./nupkgs
+      run: |
+        curl -L https://www.nuget.org/downloads/nuget.exe --output nuget.exe
+        ./nuget.exe pack ./Projeto_ClassLibrary/Projeto_ClassLibrary.csproj -OutputDirectory ./nupkgs
 
     # Publish to GitHub Packages
     - name: Publish to GitHub Packages
-      run: dotnet nuget push ./nupkgs/*.nupkg --source "github" --api-key ${{ secrets.GITHUB_TOKEN }}
-      env:
-        NUGET_SERVER_URL: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+      run: |
+        ./nuget.exe push ./nupkgs/*.nupkg -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" -ApiKey ${{ secrets.GITHUB_TOKEN }}
+
 
 
