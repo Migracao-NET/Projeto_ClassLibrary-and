@@ -29,7 +29,7 @@ jobs:
       with:
         args: >
          -Dsonar.organization=migracaodotnetforms
-         -Dsonar.projectKey=MigracaoDotNetForms_Projeto_ClassLibrary
+         -Dsonar.projectKey=${{ github.event.repository.name }}
          -Dsonar.verbose=true
          -Dsonar.exclusions=**/bin/**/*,**/obj/**/*,**/packages/**/*,**/test/**/*
           
