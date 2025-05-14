@@ -54,10 +54,13 @@ jobs:
       run: |
         ./nuget.exe pack Projeto_ClassLibrary/Projeto_ClassLibrary.csproj -OutputDirectory ./nupkgs
 
-    # Publish to GitHub Packages
-    - name: Publish to GitHub Packages
+      # Authenticate and Publish to GitHub Packages
+    - name: Authenticate and Publish to GitHub Packages
       run: |
-        ./nuget.exe push ./nupkgs/*.nupkg -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" -ApiKey ${{ secrets.NUGET_AUTH_TOKEN}}
-
-
+       nuget.exe sources add -Name "github" -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" -Username ${{ github.actor }} -Password ${{ secrets.GITHUB_TOKEN }}
+       nuget.exe push **/*.nupkg -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" -ApiKey ${{ secrets.GITHUB_TOKEN }} -SkipDuplicate
+      shell: pwsh
+      env:
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+   
 
