@@ -43,7 +43,7 @@ jobs:
     # Pack the NuGet package
     - name: Download NuGet CLI
       run: |
-        curl -L --fail https://www.nuget.org/downloads/nuget.exe --output nuget.exe
+        curl -L --fail https://dist.nuget.org/win-x86-commandline/latest/nuget.exe --output nuget.exe
 
     - name: Verify NuGet Download
       run: dir nuget.exe
