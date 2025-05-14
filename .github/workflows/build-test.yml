@@ -1,66 +1,66 @@
-name: Build, Test, and Publish
+# name: Build, Test, and Publish
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
 
-jobs:
-  build:
-    runs-on: windows-latest
+# jobs:
+#   build:
+#     runs-on: windows-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v3
+#       with:
+#         fetch-depth: 0
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
+#     - name: Setup MSBuild
+#       uses: microsoft/setup-msbuild@v2
 
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v2
+#     - name: Setup NuGet
+#       uses: NuGet/setup-nuget@v2
 
-    - name: Oficial SonarQube Scan
-      uses: sonarsource/sonarqube-scan-action@v5.2.0
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      with:
-        args: >
-         -Dsonar.organization=migracaodotnetforms
-         -Dsonar.projectKey=${{ github.event.repository.name }}
-         -Dsonar.verbose=true
-         -Dsonar.exclusions=**/bin/**/*,**/obj/**/*,**/packages/**/*,**/test/**/*
+#     - name: Oficial SonarQube Scan
+#       uses: sonarsource/sonarqube-scan-action@v5.2.0
+#       env:
+#         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#       with:
+#         args: >
+#          -Dsonar.organization=migracaodotnetforms
+#          -Dsonar.projectKey=${{ github.event.repository.name }}
+#          -Dsonar.verbose=true
+#          -Dsonar.exclusions=**/bin/**/*,**/obj/**/*,**/packages/**/*,**/test/**/*
           
-    # Build the project
-    - name: Build solution
-      run: msbuild Projeto_ClassLibrary.sln /p:Configuration=Release
+#     # Build the project
+#     - name: Build solution
+#       run: msbuild Projeto_ClassLibrary.sln /p:Configuration=Release
 
-    - name: Run tests
-      run: dotnet test ./Projeto_ClassLibrary.Tests/Projeto_ClassLibrary.Tests.csproj --configuration Release
+#     - name: Run tests
+#       run: dotnet test ./Projeto_ClassLibrary.Tests/Projeto_ClassLibrary.Tests.csproj --configuration Release
 
-    # Pack the NuGet package
-    - name: Download NuGet CLI
-      run: |
-         curl -L --fail https://dist.nuget.org/win-x86-commandline/latest/nuget.exe --output nuget.exe
+#     # Pack the NuGet package
+#     - name: Download NuGet CLI
+#       run: |
+#          curl -L --fail https://dist.nuget.org/win-x86-commandline/latest/nuget.exe --output nuget.exe
 
-    #Verify NuGet Download
-    - name: Verify NuGet Download
-      run: dir nuget.exe
+#     #Verify NuGet Download
+#     - name: Verify NuGet Download
+#       run: dir nuget.exe
 
-      # pack the NuGet package
-    - name: Pack NuGet package
-      run: |
-        ./nuget.exe pack Projeto_ClassLibrary/Projeto_ClassLibrary.csproj -OutputDirectory ./nupkgs
+#       # pack the NuGet package
+#     - name: Pack NuGet package
+#       run: |
+#         ./nuget.exe pack Projeto_ClassLibrary/Projeto_ClassLibrary.csproj -OutputDirectory ./nupkgs
 
-      # Authenticate and Publish to GitHub Packages
-    - name: Authenticate and Publish to GitHub Packages
-      run: |
-       nuget.exe sources add -Name "github" -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" -Username ${{ github.actor }} -Password ${{ secrets.GITHUB_TOKEN }}
-       nuget.exe push **/*.nupkg -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" -ApiKey ${{ secrets.GITHUB_TOKEN }} -SkipDuplicate
-      shell: pwsh
-      env:
-       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       # Authenticate and Publish to GitHub Packages
+#     - name: Authenticate and Publish to GitHub Packages
+#       run: |
+#        nuget.exe sources add -Name "github" -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" -Username ${{ github.actor }} -Password ${{ secrets.GITHUB_TOKEN }}
+#        nuget.exe push **/*.nupkg -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" -ApiKey ${{ secrets.GITHUB_TOKEN }} -SkipDuplicate
+#       shell: pwsh
+#       env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
    
 
