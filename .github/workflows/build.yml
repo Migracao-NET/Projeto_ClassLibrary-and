@@ -5,22 +5,17 @@ on:
   workflow_dispatch:
 
 jobs:
-    #1 build
+    #1 build - tests
   build:
     uses: MigracaoDotNetForms/ci-cd-pipelines/.github/workflows/reusable-build.yml@main
     with:
       solution_name: 'Projeto_ClassLibrary.sln'
       build_configuration: 'Release'
+      test_path: 'Projeto_ClassLibrary.Tests/bin/Release/net6.0/Projeto_ClassLibrary.Tests.dll'
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-    #2 tests
-  test:
-    needs: build
-    uses: MigracaoDotNetForms/ci-cd-pipelines/.github/workflows/reusable-test.yml@main
-    with:
-      test_path: './Projeto_ClassLibrary.Tests/Projeto_ClassLibrary.Tests.csproj'
-      build_configuration: 'Release'
+      
+      
 
      #3 deploy
   deploy:
