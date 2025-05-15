@@ -27,6 +27,5 @@ jobs:
     needs: test
     uses: MigracaoDotNetForms/ci-cd-pipelines/.github/workflows/package-deploy.yml@main
     with:
-      working-directory: Projeto_ClassLibrary
-      project_path: Projeto_ClassLibrary.csproj
+      project_path: Projeto_ClassLibrary/Projeto_ClassLibrary.csproj
   
