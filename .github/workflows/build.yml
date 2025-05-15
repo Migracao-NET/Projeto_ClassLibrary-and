@@ -27,7 +27,6 @@ jobs:
     needs: test
     uses: MigracaoDotNetForms/ci-cd-pipelines/.github/workflows/package-deploy.yml@main
     with:
-      solution_name: 'Projeto_ClassLibrary.sln'
       build_configuration: 'Release'
       project_path: Projeto_ClassLibrary/Projeto_ClassLibrary.csproj
   
