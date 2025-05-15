@@ -11,12 +11,10 @@ jobs:
     with:
       solution_name: 'Projeto_ClassLibrary.sln'
       build_configuration: 'Release'
-      test_path: 'Projeto_ClassLibrary.Tests/bin/Release/net6.0/Projeto_ClassLibrary.Tests.dll'
-    secrets:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      test_path: './Projeto_ClassLibrary.Tests/Projeto_ClassLibrary.Tests.csproj'
+      secrets:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       
-      
-
      #3 deploy
   deploy:
     uses: MigracaoDotNetForms/ci-cd-pipelines/.github/workflows/package-deploy.yml@main
