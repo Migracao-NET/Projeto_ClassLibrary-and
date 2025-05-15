@@ -14,18 +14,19 @@ jobs:
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-    #2 tests
-  test:
-    needs: build
-    uses: MigracaoDotNetForms/ci-cd-pipelines/.github/workflows/reusable-test.yml@main
-    with:
-      test_path: './Projeto_ClassLibrary.Tests/Projeto_ClassLibrary.Tests.csproj'
-      build_configuration: 'Release'
+#     #2 tests
+#   test:
+#     needs: build
+#     uses: MigracaoDotNetForms/ci-cd-pipelines/.github/workflows/reusable-test.yml@main
+#     with:
+#       test_path: './Projeto_ClassLibrary.Tests/Projeto_ClassLibrary.Tests.csproj'
+#       build_configuration: 'Release'
 
      #3 deploy
   deploy:
-    needs: test
+    # needs: test
     uses: MigracaoDotNetForms/ci-cd-pipelines/.github/workflows/package-deploy.yml@main
     with:
       build_configuration: 'Release'
       project_path: 'Projeto_ClassLibrary/Projeto_ClassLibrary.csproj'
+      test-path: './Projeto_ClassLibrary.Tests/Projeto_ClassLibrary.Tests.csproj'
