@@ -14,7 +14,7 @@ jobs:
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-    #2 test
+    #2 tests
   test:
     needs: build
     uses: MigracaoDotNetForms/ci-cd-pipelines/.github/workflows/reusable-test.yml@main
