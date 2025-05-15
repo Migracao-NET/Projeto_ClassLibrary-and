@@ -1,4 +1,3 @@
-name: Caller Workflow ClassLibrary
 
 on:
   push:
