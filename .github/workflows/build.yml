@@ -8,7 +8,6 @@ jobs:
     #1 build
   build:
     uses: MigracaoDotNetForms/ci-cd-pipelines/.github/workflows/reusable-build.yml@main
-    with:
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       
