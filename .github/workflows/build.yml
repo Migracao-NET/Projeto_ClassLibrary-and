@@ -1,23 +1,22 @@
+name: CI_CD_FW
+
 on:
   push:
     branches:
       - main
   workflow_dispatch:
+permissions:
+  contents: read
+  packages: write
 
 jobs:
-    #1 build
   build:
-    uses: MigracaoDotNetForms/ci-cd-pipelines/.github/workflows/reusable-build.yml@main
+    uses: Migracao-NET/pipeline_templates/.github/workflows/build.yml@main
     with:
-      build_configuration: 'Release'
-    secrets:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      
-
-     #3 deploy
+      enableSonar: true
+    secrets: inherit
+    
   deploy:
     needs: build
-    uses: MigracaoDotNetForms/ci-cd-pipelines/.github/workflows/package-deploy.yml@main
-    with:
-     build_configuration: 'Release'
+    uses: Migracao-NET/pipeline_templates/.github/workflows/deploy-lib.yml@main
     secrets: inherit
