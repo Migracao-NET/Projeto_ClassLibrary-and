@@ -13,7 +13,7 @@ jobs:
   build:
     uses: Migracao-NET/pipeline_templates/.github/workflows/build.yml@main
     with:
-      enableSonar: true
+      enableSonar: false
     secrets: inherit
     
   deploy:
